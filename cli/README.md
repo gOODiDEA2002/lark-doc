@@ -47,44 +47,44 @@ Task: 6001 ~ 6999
 
 #新建：项目
 ```
-lark new project -group techwis.saas -artifact epsps-user saas-epsps-user 
+lark new project -group techwis. -artifact epsps-user saas-epsps-user 
 ```
 #新建：Service & Contract
 ```
-lark new service -group techwis.saas -artifact epsps-user-service service
+lark new service -group techwis. -artifact epsps-user-service service
 ```
 ```
-lark new service-contract -group techwis.saas -artifact epsps-user-service-contract service-contract
+lark new service-contract -group techwis. -artifact epsps-user-service-contract service-contract
 ```
 ```
-lark new service -group techwis.saas -artifact epsps-user-admin-service admin-service
+lark new service -group techwis. -artifact epsps-user-admin-service admin-service
 ```
 ```
-lark new service-contract -group techwis.saas -artifact epsps-user-admin-service-contract admin-service-contract
+lark new service-contract -group techwis. -artifact epsps-user-admin-service-contract admin-service-contract
 ```
 #新建：Api & Contract
 ```
-lark new api -group techwis.saas -artifact epsps-user-api api
+lark new api -group techwis. -artifact epsps-user-api api
 ```
 ```
-lark new api-contract -group techwis.saas -artifact epsps-user-api-contract api-contract
+lark new api-contract -group techwis. -artifact epsps-user-api-contract api-contract
 ```
 ```
-lark new api -group techwis.saas -artifact epsps-user-admin-api api
+lark new api -group techwis. -artifact epsps-user-admin-api api
 ```
 ```
-lark new api-contract -group techwis.saas -artifact epsps-user-admin-api-contract admin-api-contract
+lark new api-contract -group techwis. -artifact epsps-user-admin-api-contract admin-api-contract
 ```
 #新建：Task
 ```
-lark new task -group techwis.saas -artifact epsps-user-task task
+lark new task -group techwis. -artifact epsps-user-task task
 ```
 #新建：Msg Handler & Contract
 ```
-lark new msg-handler -group techwis.saas -artifact epsps-user-msg-handler msg-handler
+lark new msg-handler -group techwis. -artifact epsps-user-msg-handler msg-handler
 ```
 ```
-lark new msg-contract -group techwis.saas -artifact epsps-user-msg-contract msg-contract
+lark new msg-contract -group techwis. -artifact epsps-user-msg-contract msg-contract
 ```
 #测试Service
 ```
