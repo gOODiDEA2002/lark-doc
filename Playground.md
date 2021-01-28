@@ -1,8 +1,7 @@
 #Playground环境说明
 
 ##WIFI：Techwis-Ac68U（_5G）
-密码：q1w2e3r4!@#$
-
+密码：tian@A304
 ##依赖组件地址
 #####DNS
 192.168.99.92
@@ -74,6 +73,7 @@ deploy_api_playground:
 
 #访问
 以下域名需连接WIFI（Techwis-Ac68U）或配置Host
+
 #####HOST
 192.168.99.201  traefik-console.foo.com
 192.168.99.201	service.foo.com

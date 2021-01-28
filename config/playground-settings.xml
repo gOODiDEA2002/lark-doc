@@ -2,7 +2,7 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <localRepository>${user.home}/.m2/repository</localRepository>
+    <localRepository>${userEntity.home}/.m2/repository</localRepository>
     <mirrors>
         <mirror>
             <id>mirror</id>
@@ -13,32 +13,32 @@
     </mirrors>
     <servers>
         <server>
-            <id>nexus-releases</id>
+            <id>playground-releases</id>
             <username>devops</username>
             <password>devops</password>
         </server>
         <server>
-            <id>nexus-snapshots</id>
+            <id>playground-snapshots</id>
             <username>devops</username>
             <password>devops</password>
         </server>
     </servers>
     <profiles>
         <profile>
-            <id>nexus</id>
+            <id>nexus-playground</id>
             <repositories>
                 <repository>
-                    <id>nexus-public</id>
+                    <id>playground-public</id>
                     <url>http://192.168.99.90:8081/repository/maven-public/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
                     <snapshots>
-                        <enabled>true</enabled>
+                        <enabled>false</enabled>
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>nexus-releases</id>
+                    <id>playground-releases</id>
                     <url>http://192.168.99.90:8081/repository/maven-releases/</url>
                     <releases>
                         <enabled>true</enabled>
@@ -48,7 +48,7 @@
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>nexus-snapshots</id>
+                    <id>playground-snapshots</id>
                     <url>http://192.168.99.90:8081/repository/maven-snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
@@ -61,7 +61,7 @@
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
-                    <id>nexus-public</id>
+                    <id>playground-public</id>
                     <url>http://192.168.99.90:8081/repository/maven-public/</url>
                     <releases>
                         <enabled>true</enabled>
@@ -71,17 +71,17 @@
                     </snapshots>
                 </pluginRepository>
                 <pluginRepository>
-                    <id>nexus-releases</id>
+                    <id>playground-releases</id>
                     <url>http://192.168.99.90:8081/repository/maven-releases/</url>
                     <releases>
-                        <enabled>false</enabled>
+                        <enabled>true</enabled>
                     </releases>
                     <snapshots>
-                        <enabled>true</enabled>
+                        <enabled>false</enabled>
                     </snapshots>
                 </pluginRepository>
                 <pluginRepository>
-                    <id>nexus-snapshots</id>
+                    <id>playground-snapshots</id>
                     <url>http://192.168.99.90:8081/repository/maven-snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
@@ -95,7 +95,7 @@
         </profile>
     </profiles>
     <activeProfiles>
-        <activeProfile>nexus</activeProfile>
+        <activeProfile>nexus-playground</activeProfile>
     </activeProfiles>
 
 
