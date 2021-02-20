@@ -3,98 +3,76 @@
 根据操作系统下载lark并放到可执行目录下
 mac/win/linux
 
-#新建项目
-```
-lark new project -group ${groupName} -artifact ${artifactName} ${projectDirname}
-```
-#新建模块
+- 新建项目
 
-进入项目所在目录
+```bash    
+lark new project -group groupName -artifact artifactName -port portSuffix projectDirname
 ```
-lark new ${moduleType} -group ${groupName} -artifact ${artifactName} ${moduleDirName}
-```
-#模块类型：moduleType
-前端接口：api
+- 新建模块
 
-前端接口协议：api-contract
+```bash  
+lark new moduleType moduleDirName
+```
 
-服务接口：service
+> moduleType分为：
+> - 前端接口：api
+> - 前端接口协议：api-contract
+> - 服务接口：service
+> - 服务接口协议：service-contract
+> - 消息发送及处理协议：msg-contract
+> - 消息处理：msg-handler
+> - 定时任务：task
+> - 后台前端接口：admin-api
+> - 后台前端接口协议：admin-api-contract
+> - 后台服务接口：admin-service
+> - 后台服务接口协议：admin-service-contract
 
-服务接口协议：service-contract
+- 生成脚本示例
+```bash
+# new project
+lark new project -group lark -artifact lark-demo -port 102 demo
 
-消息发送及处理协议：msg-contract
+cd lark
+# new api
+lark new api-contract api-contract
+lark new api api
 
-消息处理：msg-handler
+# new admin-api
+lark new admin-api-contract admin-api-contract
+lark new admin-api admin-api
 
-定时任务：task
+# new service
+lark new service-contract service-contract
+lark new service service
 
-#各类型模块端口
-Api: 1001 ~ 1999
+# new admin-service
+lark new admin-service-contract admin-service-contract
+lark new admin-service admin-service
 
-Admin-Api：2001 ~ 2999
+# new msg
+lark new msg-contract msg-contract
+lark new msg-handler  msg-handler
 
-Service：3001 ~ 3999
+# new task
+lark new task task
+```
+* 生成的模块名分别为：
+- lark-demo-api
+- lark-demo-api-contract
+- lark-demo-admin-api
+- lark-demo-admin-api-contract
+- lark-demo-service
+- lark-demo-service-contract
+- lark-demo-admin-service
+- lark-demo-admin-service-contract
+- lark-demo-msg
+- lark-demo-msg-contract
+- lark-demo-task
 
-Admin-Service: 4001 ~ 4999
-
-Msg-Handler: 5001 ~ 5999
-
-Task: 6001 ~ 6999
-
-#示例:
-
-#快递自提点服务平台(express-package-self-pickup-site)
-
-#新建：项目
-```
-lark new project -group techwis. -artifact epsps-userEntity saas-epsps-userEntity 
-```
-#新建：Service & Contract
-```
-lark new service -group techwis. -artifact epsps-userEntity-service service
-```
-```
-lark new service-contract -group techwis. -artifact epsps-userEntity-service-contract service-contract
-```
-```
-lark new service -group techwis. -artifact epsps-userEntity-admin-service admin-service
-```
-```
-lark new service-contract -group techwis. -artifact epsps-userEntity-admin-service-contract admin-service-contract
-```
-#新建：Api & Contract
-```
-lark new api -group techwis. -artifact epsps-userEntity-api api
-```
-```
-lark new api-contract -group techwis. -artifact epsps-userEntity-api-contract api-contract
-```
-```
-lark new api -group techwis. -artifact epsps-userEntity-admin-api api
-```
-```
-lark new api-contract -group techwis. -artifact epsps-userEntity-admin-api-contract admin-api-contract
-```
-#新建：Task
-```
-lark new task -group techwis. -artifact epsps-userEntity-task task
-```
-#新建：Msg Handler & Contract
-```
-lark new msg-handler -group techwis. -artifact epsps-userEntity-msg-handler msg-handler
-```
-```
-lark new msg-contract -group techwis. -artifact epsps-userEntity-msg-contract msg-contract
-```
-#测试Service
-```
-curl --location --request POST 'http://127.0.0.1:3001/test/hello.srv' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "id": 123 
-}'
-```
-#测试Api
-```
-curl -X POST "http://127.0.0.1:1001/test/hello.api" -d "id=123&name=xxx"
-```
+* 模块占用端口分别为：
+- lark-demo-api: 1102
+- lark-demo-admin-api: 2102
+- lark-demo-service: 3102
+- lark-demo-admin-service: 4102
+- lark-demo-msg: 5102
+- lark-demo-task: 6102

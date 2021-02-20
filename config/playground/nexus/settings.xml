@@ -2,13 +2,13 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <localRepository>${userEntity.home}/.m2/repository</localRepository>
+    <localRepository>${user.home}/.m2/repository</localRepository>
     <mirrors>
         <mirror>
             <id>mirror</id>
             <mirrorOf>*</mirrorOf>
             <name>mirror</name>
-            <url>http://192.168.99.90:8081/repository/maven-public/</url>
+            <url>http://package-repo-dev.lark-cloud.com/repository/maven-public/</url>
         </mirror>
     </mirrors>
     <servers>
@@ -29,7 +29,7 @@
             <repositories>
                 <repository>
                     <id>playground-public</id>
-                    <url>http://192.168.99.90:8081/repository/maven-public/</url>
+                    <url>http://package-repo-dev.lark-cloud.com/repository/maven-public/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -39,7 +39,7 @@
                 </repository>
                 <repository>
                     <id>playground-releases</id>
-                    <url>http://192.168.99.90:8081/repository/maven-releases/</url>
+                    <url>http://package-repo-dev.lark-cloud.com/repository/maven-releases/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -49,7 +49,7 @@
                 </repository>
                 <repository>
                     <id>playground-snapshots</id>
-                    <url>http://192.168.99.90:8081/repository/maven-snapshots/</url>
+                    <url>http://package-repo-dev.lark-cloud.com/repository/maven-snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -62,7 +62,7 @@
             <pluginRepositories>
                 <pluginRepository>
                     <id>playground-public</id>
-                    <url>http://192.168.99.90:8081/repository/maven-public/</url>
+                    <url>http://package-repo-dev.lark-cloud.com/repository/maven-public/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -72,7 +72,7 @@
                 </pluginRepository>
                 <pluginRepository>
                     <id>playground-releases</id>
-                    <url>http://192.168.99.90:8081/repository/maven-releases/</url>
+                    <url>http://package-repo-dev.lark-cloud.com/repository/maven-releases/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -82,7 +82,7 @@
                 </pluginRepository>
                 <pluginRepository>
                     <id>playground-snapshots</id>
-                    <url>http://192.168.99.90:8081/repository/maven-snapshots/</url>
+                    <url>http://package-repo-dev.lark-cloud.com/repository/maven-snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -97,6 +97,4 @@
     <activeProfiles>
         <activeProfile>nexus-playground</activeProfile>
     </activeProfiles>
-
-
 </settings>
