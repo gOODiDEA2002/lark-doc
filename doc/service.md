@@ -82,11 +82,10 @@ public class GetOrderDto {
 * 定义接口
 
 ```java
-@RestController
-@RequestMapping("/test")
+@RpcService
 public interface TestService {
-    
-    @PostMapping( "/order/get.srv")
+
+    @RpcMethod
     GetOrderDto.GetOrderResponse getOrder(@RequestBody GetOrderDto.GetOrderRequest request);
 }
 ```

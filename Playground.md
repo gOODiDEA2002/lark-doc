@@ -13,11 +13,11 @@ SSID: techwis-ac68u / techwis-ac68u_5G
 
 * Gitlab
 
-http://code-repo.lark-cloud.com/
+http://code-repo-dev.lark-cloud.com/
 
 * Nexus
 
-http://package-repo.lark-cloud.com/
+http://package-repo-dev.lark-cloud.com/
 
 > user: admin / pwd: admin123
 
@@ -84,10 +84,17 @@ curl -X POST "http://api.lark-cloud.com/lark-example-api/test/hello.api" -d "id=
 http://service.lark-cloud.com/${module-ingress-path}/${module-controller-path}
 
 ```bash
-curl --location --request POST 'http://service.lark-cloud.com/lark-example-service/test/hello.srv' \
+curl --location --request POST 'http://service.lark-cloud.com/lark-example-service/lark/TestService/Hello' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-"id": 123
+	"service": "TestService",
+	"method": "Hello",
+	"args": [
+		{
+			"type": 150,
+			"data": "{\"id\":123,\"type\":\"GOOD\"}"
+		}
+	]
 }'
 ```
 
