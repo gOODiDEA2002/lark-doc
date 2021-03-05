@@ -1,6 +1,6 @@
 # Playground环境说明
 
-**playground**环境用于熟悉框架和流程
+**playground**环境用于熟悉框架和流程，仅供内网使用
 
 ## 前置条件
 * WIFI 
