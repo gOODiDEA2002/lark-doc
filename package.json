@@ -1,0 +1,16 @@
+{
+  "name": "lark-doc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "andy.yuan <goodidea2002@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "dependencies": {
+    "mermaid": "^8.9.1",
+    "vuepress": "^1.8.2",
+    "vuepress-theme-reco": "^1.6.5"
+  }
+}
