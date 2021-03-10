@@ -29,7 +29,7 @@ lark.util.oss.OssService 封装了对Oss的常用方法
 lark:
   util:
     oss:
-      address: 192.168.99.97:9000
+      address: oss-dev.lark-cloud.com
       username: minio
       password: 12345678
       type: minio

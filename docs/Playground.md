@@ -63,6 +63,11 @@ db-dev.lark-cloud.com:3306
 
 http://index-dev.lark-cloud.com:9200/
 
+* MinIO
+
+https://oss-dev.lark-cloud.com
+> user: minio / pwd: 12345678
+
 * k8s - Rancher 
 
 https://192.168.99.200:10443/
