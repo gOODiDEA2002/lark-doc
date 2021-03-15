@@ -44,24 +44,9 @@ public enum PersonStatus implements EnumValueSupport {
 同时为了简化代码书写, 我们使用 static 方式 import 如下类型
 
 ```java
-import static lark.db.sql.SqlHelper.*;
-import static lark.db.sql.FilterType.*;
-import static lark.db.sql.SortType.*;
-```
-
-## 初始化 SqlQuery 对象
-
-在使用 **jsd** 前，我们首先需要创建一个 **SqlQuery** 对象。
-
-```java
-public class TestDao {
-    private SqlQuery query;
-
-    @Autowired
-    public TestDao(DataSource ds) {
-        this.query = new SqlQuery(ds);
-    }    
-}
+import static mtime.lark.db.jsd.Shortcut.*;
+import static mtime.lark.db.jsd.FilterType.*;
+import static mtime.lark.db.jsd.SortType.*;
 ```
 
 ## 插入
@@ -69,26 +54,30 @@ public class TestDao {
 ### 插入单条记录
 
 ```java
-InsertResult result = query.insert("person").columns("id", "name").values(1, "n1").result();
-System.out.println(String.format("{affectedRows: %d, keys: %s}", result.getAffectedRows(), result.getKey().intValue()));
+Database db = databaseService.get("group");
+InsertResult result = db.insert("person").columns("id", "name").values(1, "n1").result();
+System.out.println(String.format("{affectedRows: %d, keys: %s}", result.getAffectedRows()));
 ```
 
 ### 插入多条记录
 
 ```java
-InsertResult result = query.insert("person").columns("id", "name").values(1, "n1").values(2, "n2").result();
+Database db = databaseService.get("group");
+InsertResult result = db.insert("person").columns("id", "name").values(1, "n1").values(2, "n2").result();
 System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows()));
 ```
 
 ### 插入 Java 实体对象
 
 ```java
+Database db = databaseService.get("group");
+
 Person p = new Person();
 p.setId(22);
 p.setName("abc");
 
-InsertResult result = query.insert(p).result();
-System.out.println(String.format("{affectedRows: %d, keys: %s}", result.getAffectedRows(), result.getKey().intValue()));
+InsertResult result = db.insert(p).result();
+System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows()));
 ```
 
 > 注意: 属性上的 `@GeneratedValue` 注解表示此属性的值将由数据库自增生成, 在插入对象时此属性会自动跳过
@@ -96,7 +85,8 @@ System.out.println(String.format("{affectedRows: %d, keys: %s}", result.getAffec
 ### 插入多条记录并获取自增 ID
 
 ```java
-InsertResult result = query.insert("person").columns("id", "name").values(1, "n1").values(2, "n2").result(true);
+Database db = databaseService.get("group");
+InsertResult result = db.insert("person").columns("id", "name").values(1, "n1").values(2, "n2").result(true);
 System.out.println(String.format("{keys: %s}", result.getKeys()));
 ```
 
@@ -109,21 +99,24 @@ System.out.println(String.format("{keys: %s}", result.getKeys()));
 直接返回数据
 
 ```java
-SelectResult result = query.select("Id", "Name", "Age").from("person").where(f("id", 22)).result();
+Database db = databaseService.get("group");
+SelectResult result = db.select("Id", "Name", "Age").from("person").where(f("id", 22)).result();
 Map<String, Object> row = result.one();
 ```
 
 返回 Java 对象
 
 ```java
-SelectResult result = query.select("Id", "Name", "Age").from("person").where(f("id", 22)).result();
+Database db = databaseService.get("group");
+SelectResult result = db.select("Id", "Name", "Age").from("person").where(f("id", 22)).result();
 Person p = result.one(Person.class);
 ```
 
 ### 查询数量
 
 ```java
-long count = (long)query.select(count()).from("person").result().value();
+Database db = databaseService.get("group");
+long count = (long)db.select(count()).from("person").result().value();
 ```
 
 > 注意: 返回的 **count** 数据类型与数据库驱动有关, MySQL 是 `long`, SQL Server 是 `int`
@@ -131,20 +124,23 @@ long count = (long)query.select(count()).from("person").result().value();
 ### 查询多条记录
 
 ```java
-SelectResult result = query.select("Id", "Name", "Age").from("person").where(f("id", 22)).result();
+Database db = databaseService.get("group");
+SelectResult result = db.select("Id", "Name", "Age").from("person").where(f("id", 22)).result();
 List<Person> persons = result.all(Person.class);
 ```
 
 ### 分页
 
 ```java
-List<Person> orders = query.select(cs("Id,Name,Age").where(f).page(pageIndex, pageSize).result().all(Person.class);
+Database db = databaseService.get("group");
+List<Person> orders = db.select(cs("Id,Name,Age").where(f).page(pageIndex, pageSize).result().all(Person.class);
 ```
 
 ### 根据对象自动生成查询列
 
 ```java
-SelectResult result = query.select(Person.class).where(f("id", 22)).result();
+Database db = databaseService.get("group");
+SelectResult result = db.select(Person.class).where(f("id", 22)).result();
 Person p = result.one(Person.class);
 ```
 
@@ -153,16 +149,18 @@ Person p = result.one(Person.class);
 当查询大批量数据进行处理时, 为防止内存溢出, 可以用流式方式进行读取处理
 
 ```java
-SelectResult result = query.select("Id", "Name", "Age").from("person").where(f("id", GT, 22)).result();
+Database db = databaseService.get("group");
+SelectResult result = db.select("Id", "Name", "Age").from("person").where(f("id", GT, 22)).result();
 result.each(reader -> println("each: " + reader.getInt(1)));
 ```
 
 ### IN 查询条件
 
-**jsd** 对 IN 查询条件做了优化处理, 支持直接传入数组, 
+**jsd** 对 IN 查询条件做了优化处理, 支持直接传入数组,
 
 ```java
-SelectResult result = query.select("Id", "Name", "Age").from("person").where(f("id", IN, new int[]{19, 20})).result();
+Database db = databaseService.get("group");
+SelectResult result = db.select("Id", "Name", "Age").from("person").where(f("id", IN, new int[]{19, 20})).result();
 List<Person> persons = result.all(Person.class);
 ```
 
@@ -184,10 +182,11 @@ LIMIT 0, 10
 **jsd** 实现
 
 ```java
+Database db = databaseService.get("group");
 Table t1 = t("Activity", "A");
 Table t2 = t("ActivityCategory", "AC");
 Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2014-11-20");
-SelectResult result = query.select(c(t2, "ID", "NAME_CN").add("COUNT(*)", "Count"))
+SelectResult result = db.select(c(t2, "ID", "NAME_CN").add("COUNT(*)", "Count"))
         .from(t1).join(t2, f(t1, "ActivityCategory", t2, "ID"))
         .where(f(t1, "ENTER_TIME", LT, date))
         .groupBy(g(t2, "ID", "NAME_CN"))
@@ -205,19 +204,21 @@ SelectResult result = query.select(c(t2, "ID", "NAME_CN").add("COUNT(*)", "Count
 // 更新 id = 1 或 id = 2 的记录
 UpdateValues values = uv("name", "new name");
 Filter f = f("id", 1).or(f("id", 2));
-SimpleResult result = query.update("person").set(values).where(f).result();
+SimpleResult result = db.update("person").set(values).where(f).result();
 System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows()));
 ```
 
 ### Java 对象方式
 
 ```java
+Database db = databaseService.get("group");
+
 Person p = new Person();
 p.setId(22);
 p.setName("abc");
 
 // 只更新 name 列
-SimpleResult result = query.update(p, "name").result();
+SimpleResult result = db.update(p, "name").result();
 System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows()));
 ```
 
@@ -229,7 +230,8 @@ System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows())
 
 ```java
 // 删除 id = 1 的记录
-SimpleResult result = query.delete("person").where(f("id", 1));
+Database db = databaseService.get("group");
+SimpleResult result = db.delete("person").where(f("id", 1));
 System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows()));
 ```
 
@@ -237,17 +239,20 @@ System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows())
 
 ```java
 // 删除 id = 1 的记录
+Database db = databaseService.get("group");
+
 Person p = new Person()
 p.setId(1);
 
-SimpleResult result = query.delete(p).result();
+SimpleResult result = db.delete(p).result();
 System.out.println(String.format("{affectedRows: %d}", result.getAffectedRows()));
 ```
 
 ## 直接执行 SQL 语句
 
 ```java
-try (ExecuteResult result = query.execute("select * from person where id<?", 100).result()) {
+Database db = databaseService.get("group");
+try (ExecuteResult result = db.execute("select * from person where id<?", 100).result()) {
     Person p = result.one(Person.class);
 }
 ```
@@ -256,4 +261,38 @@ try (ExecuteResult result = query.execute("select * from person where id<?", 100
 
 ## 事务
 
-**jsd** 完全兼容 Spring 的事务注解，如果你想，你甚至可以跟 MyBatis 或 JPA 混用。
+**jsd** 使用事务非常简单, 调用 `begin` 方法即可, 当 `begin` 方法内部发生异常时, 事务会回滚, 否则事务自动提交
+
+### 常规用法
+
+```java
+Database db = databaseService.get("group");
+db.begin(tx -> {
+    SimpleResult sr = tx.update("person").set(uv("name", "yyy")).where(f("id", 19)).result();
+    System.out.println(sr.getAffectedRows());
+
+    Map<String, Object> map = tx.select("id", "name").from("person").where(f("id", 19)).result().one();
+    System.out.println(map);
+});
+```
+
+### 使用上下文事务
+
+```java
+Database db = databaseService.get("group");
+db.begin(tx -> {
+    SimpleResult sr = tx.update("person").set(uv("name", "yyy")).where(f("id", 19)).result();
+    System.out.println(sr.getAffectedRows());
+
+    useContextTransaction();
+}, true);
+
+private void useContextTransaction() {
+    Transaction tx = Transaction.get();
+    Map<String, Object> map = tx.select("id", "name").from("person").where(f("id", 19)).result().one();
+    println(map);
+}
+```
+
+## TODO:调试
+**jsd** 会自动检测是否配置了日志输出, 只有配置了此日志输出节点时, 才会记录日志. 为避免影响性能, 生产环境中请关闭日志.
